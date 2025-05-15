@@ -2,6 +2,7 @@ import { Navigate } from "react-router"
 import { Input } from "../components/ui/input"
 import { useAuthentication } from "../context/auth"
 import { useState } from "react"
+import { supabase } from "../lib/supabase"
 
 export const SignUpPage = () => {
   const { session } = useAuthentication()
@@ -14,7 +15,7 @@ export const SignUpPage = () => {
 
   const { email, password, confirmPassword } = signUpForm
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log('Sign up form submitted')
 
@@ -23,6 +24,22 @@ export const SignUpPage = () => {
       password,
       confirmPassword
     })
+
+    if( password !== confirmPassword ) {
+      window.alert('Passwords do not match')
+      return
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password
+    })
+
+    if( error ) {
+      console.error('Error signing up:', error)
+      window.alert('Error signing up')
+      return
+    }
   }
 
   if( session ) {

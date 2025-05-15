@@ -2,6 +2,7 @@ import { Navigate } from "react-router"
 import { Input } from "../components/ui/input"
 import { useAuthentication } from "../context/auth"
 import { useState } from "react"
+import { supabase } from "../lib/supabase"
 
 export const LoginPage = () => {
   const { session } = useAuthentication()
@@ -12,7 +13,7 @@ export const LoginPage = () => {
 
   const { email, password } = loginForm
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log('Login form submitted')
 
@@ -22,6 +23,21 @@ export const LoginPage = () => {
     })
 
     // log in logic here
+
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if( error ) {
+      return window.alert(error.message)
+    }
+
+    console.log({
+      data,
+      error
+    })
   }
 
   if( session ) {
@@ -63,6 +79,9 @@ export const LoginPage = () => {
       </form>
       <p className="mt-4 text-center">
         Don't have an account? <a href="/auth/register" className="text-blue-500">Sign Up</a>
+      </p>
+      <p>
+        {/* <a href="/auth/forgot-password" className="text-blue-500">Forgot Password?</a> */}
       </p>
     </section>
   )

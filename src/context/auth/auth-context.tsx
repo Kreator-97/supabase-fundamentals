@@ -1,7 +1,9 @@
 import { createContext } from "react";
 
+import type { Session } from "@supabase/supabase-js";
+
 export interface AuthContextState {
-  session: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  session: Session | null;
 }
 
 export const AuthContext = createContext<AuthContextState>({} as AuthContextState);

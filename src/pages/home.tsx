@@ -7,6 +7,10 @@ export const HomePage = () => {
     <main className="px-2">
       <Header />
       
+      <form action="">
+        
+      </form>
+
       <SubscriptionList />
     </main>
   )
