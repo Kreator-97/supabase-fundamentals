@@ -17,6 +17,9 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     <AuthContext.Provider
       value={{
         session,
+        loadSession: (session: Session) => {
+          setSession(session)
+        }
       }}
     >
       {

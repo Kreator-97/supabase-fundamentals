@@ -5,7 +5,7 @@ import { useState } from "react"
 import { supabase } from "../lib/supabase"
 
 export const LoginPage = () => {
-  const { session } = useAuthentication()
+  const { session, loadSession } = useAuthentication()
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
@@ -38,6 +38,8 @@ export const LoginPage = () => {
       data,
       error
     })
+
+    loadSession(data.session)
   }
 
   if( session ) {

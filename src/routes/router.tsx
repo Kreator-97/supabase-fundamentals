@@ -4,6 +4,7 @@ import { SubscriptionDetailsPage } from "../pages/subscription-details"
 import { PrivateRoutes } from "./private-routes"
 import { LoginPage } from "../pages/login"
 import { SignUpPage } from "../pages/sign-up"
+import { CreateService } from "../components/create-service"
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoutes>
         <HomePage />
+      </PrivateRoutes>
+    )
+  },
+  {
+    path: "/subscription/create",
+    element: (
+      <PrivateRoutes>
+        <CreateService />
       </PrivateRoutes>
     )
   },

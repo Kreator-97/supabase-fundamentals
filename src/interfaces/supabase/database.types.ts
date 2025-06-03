@@ -107,6 +107,7 @@ export type Database = {
           name: string
           payment_day: number | null
           periodicity: Database["public"]["Enums"]["Periodicity"] | null
+          profile_id: string
           start_date: string
           status: Database["public"]["Enums"]["ServiceStatus"] | null
           type: Database["public"]["Enums"]["ServiceType"] | null
@@ -120,6 +121,7 @@ export type Database = {
           name: string
           payment_day?: number | null
           periodicity?: Database["public"]["Enums"]["Periodicity"] | null
+          profile_id: string
           start_date: string
           status?: Database["public"]["Enums"]["ServiceStatus"] | null
           type?: Database["public"]["Enums"]["ServiceType"] | null
@@ -133,12 +135,21 @@ export type Database = {
           name?: string
           payment_day?: number | null
           periodicity?: Database["public"]["Enums"]["Periodicity"] | null
+          profile_id?: string
           start_date?: string
           status?: Database["public"]["Enums"]["ServiceStatus"] | null
           type?: Database["public"]["Enums"]["ServiceType"] | null
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "services_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
